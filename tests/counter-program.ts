@@ -1,7 +1,10 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { CounterProgram } from "../target/types/counter_program";
-
+import { assert } from 'chai';
+import * as programClient from "../clients/js/src/generated";
+import { address, createSolanaRpc } from "@solana/kit";
+import { publicKey } from "@coral-xyz/anchor/dist/cjs/utils";
 describe("counter-program", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
@@ -27,7 +30,9 @@ describe("counter-program", () => {
   });
 
   it("Fetch counter", async () => {
-    const counterAccount = await program.account.counter.fetch(counterPubkey);
+    const rpcLegacy = createSolanaRpc(anchor.AnchorProvider.env().connection.rpcEndpoint)
+
+    const counterAccount = await programClient.fetchCounter(rpcLegacy, address(counterPubkey));
     console.log("counterAccount", counterAccount);
   })
 });
