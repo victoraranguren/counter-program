@@ -12,7 +12,7 @@ counter_program = "53ouC8z18CRY9j7CiXA5om4p75fQBL78BDQQYwqL36t2"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "http://127.0.0.1:8899"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

@@ -31,7 +31,7 @@ pub struct Initialize<'info> {
 
 #[derive(Accounts)]
 pub struct Increment<'info> {
-    #[account(mut, constraint = counter.authority == authority.key())]
+    #[account(mut)]
     pub counter: Account<'info, Counter>,
     #[account(mut)]
     pub authority: Signer<'info>,

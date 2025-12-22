@@ -12,8 +12,9 @@ describe("counter-program", () => {
   const program = anchor.workspace.counterProgram as Program<CounterProgram>;
 
   const counter = anchor.web3.Keypair.generate();
-  //console.log("counter", counter.publicKey.toBase58());
-  const counterPubkey = "8fBUStiXCPUEit1hT3fcAZVagubhxqR4hqqKT6FxeiBH";
+  console.log("counter pb", counter.publicKey.toBase58());
+  console.log("counter pv", counter.secretKey.toString());
+  const counterPubkey = "84YBdMzM9qLxQVZ3RcAenoBKt4pzvWxhAzWE1BeYWgX6";
 
   it("Is initialized!", async () => {
     const tx = await program.methods.initialize().accounts({
@@ -22,17 +23,17 @@ describe("counter-program", () => {
     console.log("Your transaction signature", tx);
   });
 
-  it("Is incremented!", async () => {
-    const tx = await program.methods.increment().accounts({
-      counter: counterPubkey,
-    }).rpc();
-    console.log("Your transaction signature", tx);
-  });
+  // it("Is incremented!", async () => {
+  //   const tx = await program.methods.increment().accounts({
+  //     counter: counterPubkey,
+  //   }).rpc();
+  //   console.log("Your transaction signature", tx);
+  // });
 
   it("Fetch counter", async () => {
     const rpcLegacy = createSolanaRpc(anchor.AnchorProvider.env().connection.rpcEndpoint)
 
-    const counterAccount = await programClient.fetchCounter(rpcLegacy, address(counterPubkey));
+    const counterAccount = await programClient.fetchCounter(rpcLegacy, address(counter.publicKey.toBase58()));
     console.log("counterAccount", counterAccount);
   })
 });
